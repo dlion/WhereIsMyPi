@@ -13,7 +13,6 @@ import (
 )
 
 func main() {
-
 	var w sync.WaitGroup
 	found := false
 
@@ -23,6 +22,10 @@ func main() {
 		go scan("192.168.1."+strconv.Itoa(i), 22, &w, &found)
 	}
 	w.Wait()
+	// none of our goroutines found the rpi in the routing table
+	if !found {
+		log.Fatal("Couldn't locate your Raspberry Pi.")
+	}
 }
 
 func scan(host string, port int, w *sync.WaitGroup, found *bool) {
