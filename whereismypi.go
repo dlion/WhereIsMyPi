@@ -48,6 +48,10 @@ func scan(host string, port int, w *sync.WaitGroup, found *bool) {
 				fmt.Printf("You Raspberry Pi is up on: %s\n", host)
 				*found = true
 			}
+			if fields[2] == "0x2" && strings.Contains(fields[3], "dc:a6:32:") {
+				fmt.Printf("You Raspberry Pi 4 is up on: %s\n", host)
+				*found = true
+			}
 		}
 	}
 	(*w).Done()
